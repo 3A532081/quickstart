@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,20 +12,18 @@
 use App\Task;
 use Illuminate\Http\Request;
 /**
-顯示所有任務
-*/
-
+ * 顯示所有任務
+ */
 Route::get('/', function () {
     //
     $tasks = Task::orderBy('created_at', 'asc')->get();
-    return view('tasks' , [
-            'tasks' => $tasks
-        ]);
-});
-
-// 增加新的任務
+    return view('tasks', [
+        'tasks' => $tasks
+    ]);});
+/**
+ * 增加新的任務
+ */
 Route::post('/task', function (Request $request) {
-    //
     $validator = Validator::make($request->all(), [
         'name' => 'required|max:255',
     ]);
@@ -40,11 +37,11 @@ Route::post('/task', function (Request $request) {
     $task->save();
     return redirect('/');
 });
-
-// 刪除任務
+/**
+ * 刪除任務
+ */
 Route::delete('/task/{task}', function (Task $task) {
     //
     $task->delete();
     return redirect('/');
 });
-
